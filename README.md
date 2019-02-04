@@ -1,0 +1,2 @@
+# cli
+cargoboat cli client
