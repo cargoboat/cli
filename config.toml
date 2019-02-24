@@ -1,0 +1,5 @@
+[server]
+addr = "http://localhost:6000"
+[server.basic_auth]
+username = "cargoboat-server"
+password = "cargoboat"
