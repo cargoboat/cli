@@ -127,6 +127,23 @@ func main() {
 			Action: command.SetEnv,
 		},
 		{
+			Name:        "set-file",
+			Aliases:     []string{"fs"},
+			Usage:       "设置配置文件",
+			Description: "设置配置文件中的配置到Cargoboat服务器",
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "group,g",
+					Usage: "分组名称",
+				},
+				cli.StringFlag{
+					Name:  "file,f",
+					Usage: "reading from JSON, TOML, YAML, HCL, and Java properties config files",
+				},
+			},
+			Action: command.SetConfigFile,
+		},
+		{
 			Name:        "delete",
 			Aliases:     []string{"d"},
 			Usage:       "删除配置",
@@ -143,15 +160,8 @@ func main() {
 					Name:        "group",
 					Aliases:     []string{"g"},
 					Usage:       "删除分组",
-					Description: "删除rgoboat服务器上的分组和",
+					Description: "删除rgoboat服务器上的分组",
 					Action:      command.DeleteGroup,
-				},
-				{
-					Name:        "env",
-					Aliases:     []string{"e"},
-					Usage:       "显示所有环境变量",
-					Description: "查询Cargoboat服务器上的环境变量和数据",
-					Action:      command.GetAllEnvList,
 				},
 			},
 		},
