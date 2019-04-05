@@ -127,6 +127,19 @@ func main() {
 			Action: command.SetEnv,
 		},
 		{
+			Name:        "set-env-file",
+			Aliases:     []string{"sef"},
+			Usage:       "设置环境变量文件",
+			Description: "设置环境变量文件中的变量到Cargoboat服务器全局环境变量",
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:  "file,f",
+					Usage: "reading from JSON, TOML, YAML, HCL, and Java properties config files",
+				},
+			},
+			Action: command.SetEnvFile,
+		},
+		{
 			Name:        "set-file",
 			Aliases:     []string{"fs"},
 			Usage:       "设置配置文件",
