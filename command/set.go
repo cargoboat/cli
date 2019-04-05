@@ -31,6 +31,9 @@ func SetConfigFile(ctx *cli.Context) error {
 		return errors.New("group name cannot be empty")
 	}
 	fileName := ctx.String("file")
+	if fileName == "" {
+		return errors.New("fileName cannot be empty")
+	}
 	v := viper.New()
 	v.SetConfigFile(fileName)
 	if err := v.ReadInConfig(); err != nil {
@@ -56,6 +59,29 @@ func SetEnv(ctx *cli.Context) error {
 	}
 	value := ctx.String("value")
 	return ManagementClient.SetValue("env", key, value)
+}
+
+// SetEnvFile ...
+func SetEnvFile(ctx *cli.Context) error {
+	fileName := ctx.String("file")
+	if fileName == "" {
+		return errors.New("fileName cannot be empty")
+	}
+	v := viper.New()
+	v.SetConfigFile(fileName)
+	if err := v.ReadInConfig(); err != nil {
+		return err
+	}
+	keys := v.AllKeys()
+	for _, value := range keys {
+		err := ManagementClient.SetValue("env", value, v.GetString(value))
+		if err != nil {
+			logger.Errorf("set key %s from %s err:%s", value, "env", err)
+		} else {
+			logger.Warningf("set key %s from %s successful", value, "env")
+		}
+	}
+	return nil
 }
 
 // DeleteKeys ...
